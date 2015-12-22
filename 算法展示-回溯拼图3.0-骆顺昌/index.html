@@ -1,0 +1,147 @@
+<!-- saved from url=(0013)about:internet -->
+<!DOCTYPE html>
+   <!--      <style type = "text/css">
+          body{zoom:80%;}
+        </style>-->
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="icon" href="../../favicon.ico" />
+        <title>
+            算法演示
+        </title>
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <script type="text/javascript" src="js/block.js"></script>
+    </head>
+    
+    <body role="document">
+
+        <div class="container theme-showcase" role="main">
+            <div style="width:1200px;">
+                <!--头部-->
+                <div id="head_right">
+                    <div style="height:150px;width:680px;float:left;">
+                        <h1 align="left" width="50">
+                            <img hight= "120" width="120" src="images/sysu.jpg">
+                            <font face='微软雅黑'>
+                                算法作业展示——回溯(拼图)
+                            </font>
+                        </h1>
+                    </div>
+                    <div style='height:150px;'>
+                        <div align="left">
+                            <h4 style="padding-top: 20px;float:center;">小组成员：骆顺昌、李小锟、毛亚芳、周昱志</h4>
+                            <img width="80px" height="80px" src="images/luo.jpg">
+                            <img width="100px" height="100px" src="images/xiaokun.jpg">
+                            <img width="80px" height="80px" src="images/mao.jpg">
+                            <img width="80px" height="80px" src="images/yuzhi.jpg">
+                        </div>
+                    </div>
+                </div>
+
+                <!--问题描述-->
+                <div class="col-sm-4" style="width:100%;">
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                       <h3 class="panel-title">
+                         回溯-拼图-问题描述
+                       </h3>
+                      </div>
+                      <div id="student-panel" class="panel-body" style="width:auto;">
+                        <h4  style="font-family:微软雅黑;">设有12个平面图形（1,2,3,4,5,6,7,8,9,a,b,c）如下图所示。每个图形的形状互不相同，但它们都是由5个大小相同的正方形组成。如下图中这12个图形拼接成一个6*10的矩阵。设计一个算法，计算出用这12个图形拼接成给定矩形的拼接方案。</h4>
+                      </div>
+                    </div>
+                </div><!-- /.col-sm-4 -->
+               
+                <!--拼图画布-->
+                <div class="col-sm-4" style="margin-top:-8px;margin-left:-4px;width:340px;float:left;">
+                     <canvas id="demoCanvas" width="340" height="540"></canvas>
+                </div><!-- /.col-sm-4 -->
+
+                <!--图例-->
+                <div class="col-sm-4" style="width:860px;float:left;">
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                       <h3 class="panel-title">
+                         图例
+                       </h3>
+                      </div>
+                      <div class="panel-body" align="center" style="width:auto;">
+                        <canvas id="cutlineCanvas" width="850" height="270"></canvas>
+                      </div>
+                    </div>
+                </div><!-- /.col-sm-4 -->
+
+                <!--操作-->
+                <div class="col-sm-4" style="width:500px;float:left;">
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                       <h3 class="panel-title">
+                         操作
+                       </h3>
+                      </div>
+                      <div class="panel-body" align="center" style="width:auto;">
+                        <div>
+                            <button class="btn tn btn-primary" onclick="start_search(1);" style="font-family:微软雅黑;">快动作演示</button>
+                            <button class="btn  tn btn-primary" onclick="start_search(600);" style="font-family:微软雅黑;">慢动作重播</button>
+                        </div>
+                        <br>
+                        <div>
+                            <button class="btn  tn btn-primary" onclick="pause_search();" style="font-family:微软雅黑;" id="pauseButton">暂停</button>
+                            <button class="btn  tn btn-primary" onclick="stop_search();" style="font-family:微软雅黑;">最终结果</button>         
+                            <button class="btn btn-primary" onclick="clearBlock();" style="font-family:微软雅黑;">清空</button>
+                            <button class="btn btn-primary" onclick="showAllCutline();" style="font-family:微软雅黑;">显示更多图例</button>
+                        </div>
+                      </div>
+                    </div>
+                </div><!-- /.col-sm-4 -->
+
+                 <!--选择结果-->
+                <div class="col-sm-4" style="width:360px;float:left;">
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                       <h3 class="panel-title">
+                         选择结果
+                       </h3>
+                      </div>
+                      <div class="panel-body" align="center" style="width:auto;">
+                          <div id="showResult" style="font-family:微软雅黑;"></div>
+                      </div>
+                    </div>
+                </div><!-- /.col-sm-4 -->
+
+                 <!--所有图例（包括旋转）-->
+                <div id="cutline_rotate" class="col-sm-4" style="width:100%;float:left;display:none">
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                       <h3 class="panel-title">
+                         所有图例（包括旋转）
+                       </h3>
+                      </div>
+                      <div class="panel-body" align="center" style="margin-left:30px;width:auto;">
+                        <canvas id="cutlineCanvas_rotate" width="1200" height="1450"></canvas>
+                      </div>
+                    </div>
+                </div><!-- /.col-sm-4 -->
+
+                <!--尾部-->
+                <div style="clear:both">
+                    <hr algin="center" style="border:2px double #e8e8e8;width:80;" />
+                    <p align="center">
+                        <font size="3">
+                            <!--<img src="images/SYSU.gif" width="240" style="280px;" />-->
+                            Copyright@2015 Suncanga,Siukwan,Avon,Yuzhi. All rights reserved.
+                            <!--<img src="images/SYSU_motto.gif" width="160" style="1000px;" /><br />-->
+                        </font>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+<script type="text/javascript">clearBlock();</script>
+<script type="text/javascript">drawCutline(13);</script>
+<script type="text/javascript">drawRotateCutline();</script>
+</html>
+
