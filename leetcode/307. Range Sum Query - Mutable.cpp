@@ -32,32 +32,28 @@ class NumArray {
 public:
 	vector<int> num;
 	vector<int> tree;
-	void show()
-	{
-		cout << "NUM:" << endl;
-		for (int i = 0; i < num.size(); i++)
-			cout << num[i] << " ";
-		cout << endl << "TRE:" << endl;
-		for (int i = 0; i < tree.size(); i++)
-			cout << tree[i] << " ";
-		cout << endl;
-	}
+
 	NumArray(vector<int> &nums) {
+	    //初始化两个数组，一个是num，用来存储原来的数组
 		num = nums;
+		//一个是树状数组，存储和信息
 		tree = vector<int>(nums.size() + 1, 0);
 		for (int i = 0; i < nums.size(); i++)
-		{
+		{//采用add操作进行更新
 			add(i + 1, nums[i]);
 		}
 	}
 
 	void update(int i, int val) {
+	    //求出差值，进行add
 		int diff = val - num[i];
 		add(i + 1, diff);
+		//由于update操作设计到val-num[i]，所以除了更新树状数组，原数组也需要更新
 		num[i] = val;
 	}
 
 	int sumRange(int i, int j) {
+	    //求出1到j+1的和，求出1到i的和，然后进行相减
 		return get(j+1) - get(i);
 	}
 	//x=0时返回0，所以x必须>=1
@@ -70,6 +66,8 @@ public:
 		for (int i = x; i < tree.size(); i += lowbit(i))
 			tree[i] += value;
 	}
+	
+	//get操作是得到1到x的和
 	int get(int x)
 	{
 		int sum = 0;
@@ -78,7 +76,6 @@ public:
 		return sum;
 	}
 };
-
 
 // Your NumArray object will be instantiated and called as such:
 // NumArray numArray(nums);
