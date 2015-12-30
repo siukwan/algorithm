@@ -83,7 +83,7 @@ struct MatrixNode{
 //进行函数声明
 void  PrintTitle();
 void  printAllGraphStruct();
-void  initCUDAandShowMessage();
+int   initCUDAandShowMessage();
 bool  CinParameters(int&m, int&n);
 void  initGraphStruct(GraphAll&cpu_graph);
 void  initTmpMatAndCinMN(MatrixNode &cpu_mat_tmp);
@@ -106,7 +106,15 @@ GraphAll cpu_graph;//cpu图形定义为全局变量
 int main(int argc, char **argv)
 {
 	//显示显卡的相关信息
-	initCUDAandShowMessage();
+	if (initCUDAandShowMessage() == 0)
+	{
+		cout << "没有检测到Nvida显卡及CUDA！" << endl;
+		cout << "解决方案：" << endl;
+		cout << "1.请使用安装有Nvida显卡即CUDA toolkit 7.5的电脑进行运行该程序" << endl;
+		cout << "2.请直接运行CPU版本程序：单线程及多线程程序.exe" << endl;
+		getchar();
+		return 0;
+	}
 
 	//初始化图形的结构体，预先计算出12个图形的各种变形，并存储到cpu_graph
 	initGraphStruct(cpu_graph);
@@ -458,9 +466,9 @@ bool CinParameters( int&m, int&n)
 
 /*
 函数名  ：initCUDAandShowMessage
-函数功能：读取显卡信息并进行输出
+函数功能：读取显卡信息并进行输出，返回显卡数量信息
 */
-void initCUDAandShowMessage()
+int initCUDAandShowMessage()
 {/*
  name
  用于标识设备的ASCII字符串；
@@ -519,6 +527,7 @@ multiProcessorCount
 		cudaSetDevice(i);
 		printf("\n CUDA initialized.\n");
 	}
+	return count;
 }
 
 
