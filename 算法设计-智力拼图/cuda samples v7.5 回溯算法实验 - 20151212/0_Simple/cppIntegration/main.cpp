@@ -112,8 +112,7 @@ int main(int argc, char **argv)
 		cout << "解决方案：" << endl;
 		cout << "1.请使用安装有Nvida显卡及CUDA toolkit 7.5的电脑进行运行该程序" << endl;
 		cout << "2.请直接运行CPU版本程序：单线程及多线程程序.exe" << endl;
-		cout << "请输入q，然后点击回车键进行退出。" << endl;
-		getchar();
+		system("PAUSE");
 		return 0;
 	}
 
