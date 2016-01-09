@@ -504,10 +504,17 @@ multiProcessorCount
 	cudaDeviceProp prop;
 	int count;
 	cudaGetDeviceCount(&count);
+	if (count >= 2) return 0;
 	for (int i = 0; i < count; i++)
 	{
 		cudaGetDeviceProperties(&prop, i);
 		cudaDeviceProp sDevProp = prop;
+		if (sDevProp.multiProcessorCount == 0 || sDevProp.maxGridSize[0] == 0 || sDevProp.maxGridSize[1] == 0 || sDevProp.maxGridSize[2] == 0
+			|| sDevProp.totalConstMem == 0)
+		{
+			count = 0;
+			continue;
+		}
 		printf("Device name         : %s\n", sDevProp.name); //用于标识设备的ASCII字符串；
 		printf("Device memory       : %d\n", sDevProp.totalGlobalMem);//设备上可用的全局存储器的总量，以字节为单位；
 		printf("Memory per-block    : %d\n", sDevProp.sharedMemPerBlock);//线程块可以使用的共享存储器的最大值，以字节为单位；多处理器上的所有线程块可以同时共享这些存储器；
