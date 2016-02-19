@@ -20,3 +20,25 @@ public:
 		return result;
 	}
 };
+
+
+//方法二：
+class Solution {
+public:
+	double Power(double base, int exponent) {
+
+		if (exponent >= 0) return PowerPositive(base, exponent);
+		else return PowerPositive(1 / base, -exponent);
+	}
+
+	double PowerPositive(double base, int exponent) {
+		if (exponent == 0) return 1;
+		if (exponent == 1) return base;
+
+		double result = Power(base, exponent >> 1);
+		result *= result;
+		if (exponent & 0X1 == 1)
+			result *= base;
+		return result;
+	}
+};
