@@ -50,3 +50,65 @@ public:
 		return m[head];
 	}
 };
+
+
+//这是O(n)复杂度的算法，先对每个节点进行复制，并附加到原链表，使得奇数位置节点为原链表节点，偶数位置节点为新链表节点
+//最后进行分离
+/*
+struct RandomListNode {
+int label;
+struct RandomListNode *next, *random;
+RandomListNode(int x) :
+label(x), next(NULL), random(NULL) {
+}
+};
+*/
+class Solution {
+public:
+	RandomListNode* Clone(RandomListNode* pHead)
+	{
+		copyNext(pHead);
+		copyRandom(pHead);
+		return destructList(pHead);
+	}
+
+	//复制链表，每个节点后面紧跟着复制出来的节点
+	void copyNext(RandomListNode* pHead)
+	{
+		if (pHead == NULL) return;
+		while (pHead)
+		{
+			RandomListNode* tmp = new RandomListNode(pHead->label);
+			tmp->next = pHead->next;
+			pHead->next = tmp;
+			pHead = tmp->next;
+		}
+	}
+
+	void copyRandom(RandomListNode* pHead)
+	{
+		if (pHead == NULL) return;
+		while (pHead)
+		{
+			if (pHead->random)
+				pHead->next->random = pHead->random->next;
+			pHead = pHead->next->next;
+		}
+	}
+
+	RandomListNode* destructList(RandomListNode* pHead)
+	{
+		if (pHead == NULL) return NULL;
+		RandomListNode* result = pHead->next;
+		RandomListNode* tmp = new RandomListNode(0);
+		while (pHead)
+		{
+			tmp->next = pHead->next;
+			tmp = tmp->next;
+			pHead->next = tmp->next;
+			pHead = pHead->next;
+		}
+		return result;
+	}
+
+};
