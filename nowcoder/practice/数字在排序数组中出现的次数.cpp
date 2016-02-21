@@ -45,3 +45,71 @@ public:
 	}
 
 };
+
+
+//解法二，使用二分法找出首位和末位
+class Solution {
+public:
+	int GetNumberOfK(vector<int> data, int k) {
+
+		int l = getFirstK(data, k);
+		if (l == -1) return 0;
+		int r = getLastK(data, k);
+		return r - l + 1;
+
+	}
+
+	int getFirstK(vector<int>&data, int k)
+	{
+		int l = 0;
+		int r = data.size() - 1;
+		int mid = (l + r) / 2;
+
+		while (l <= r)
+		{
+			mid = (l + r) / 2;
+			if (data[mid] == k)
+			{
+				if (mid>0 && data[mid - 1] != k)
+					return mid;
+				else if (mid == 0)
+					return mid;
+				else
+					r = mid - 1;
+			}
+			else if (data[mid]<k)
+				l = mid + 1;
+			else
+				r = mid - 1;
+		}
+
+		return -1;
+	}
+
+	int getLastK(vector<int>&data, int k)
+	{
+		int l = 0;
+		int r = data.size() - 1;
+		int mid = (l + r) / 2;
+
+		while (l <= r)
+		{
+			mid = (l + r) / 2;
+			if (data[mid] == k)
+			{
+				if (mid<data.size() - 1 && data[mid + 1] != k)
+					return mid;
+				else if (mid == data.size() - 1)
+					return mid;
+				else
+					l = mid + 1;
+			}
+			else if (data[mid]<k)
+				l = mid + 1;
+			else
+				r = mid - 1;
+		}
+
+		return -1;
+	}
+};
