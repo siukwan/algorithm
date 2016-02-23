@@ -157,3 +157,69 @@ public:
 	}
 
 };
+
+
+
+//使用stl的priority_queue
+class Solution {
+public:
+	void Insert(int num)
+	{
+		if (maxHeap.size() == minHeap.size())
+		{
+			if (minHeap.size() == 0)
+				minHeap.push(num);
+			else
+			{//
+				if (num<maxHeap.top())
+				{
+					int x = maxHeap.top();
+					maxHeap.pop();
+					minHeap.push(x);
+					maxHeap.push(num);
+				}
+				else
+					minHeap.push(num);
+			}
+		}
+		else
+		{
+			if (num>minHeap.top())
+			{
+				int x = minHeap.top();
+				minHeap.pop();
+				maxHeap.push(x);
+				minHeap.push(num);
+			}
+			else
+				maxHeap.push(num);
+
+		}
+	}
+
+	double GetMedian()
+	{
+		if (maxHeap.size() == minHeap.size())
+		{
+			if (minHeap.size() == 0) return 0;
+			else
+			{
+				double result = (maxHeap.top() + minHeap.top()) / 2.0;
+				return result;
+			}
+		}
+		else
+			return minHeap.top();
+	}
+	struct cmp{
+		bool operator()(const int&a, const int&b)
+		{
+			if (a>b) return true;
+			else return false;
+		}
+	};
+	priority_queue<int> maxHeap;
+	priority_queue<int, vector<int>, cmp> minHeap;
+
+
+};
