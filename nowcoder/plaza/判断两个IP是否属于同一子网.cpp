@@ -30,10 +30,11 @@ AND运算
 				  *               String ip2: 计算机2的IP地址，格式：“192.168.0.1”；
 				  *
 				  * 返回值：      0：IP1与IP2属于同一子网络；     1：IP地址或子网掩码格式非法；    2：IP1与IP2不属于同一子网络
-				  */
+				  
+
 public int checkNetSegment(String mask, String ip1, String ip2)
 {
-	/*在这里实现功能*/
+	//在这里实现功能
 	return 0;
 }
 
