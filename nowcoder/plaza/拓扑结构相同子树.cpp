@@ -69,7 +69,12 @@ public:
 	void dfs(TreeNode* root, vector<int>&preOrder)
 	{
 		if (root == NULL){
-			//需要加上叶子节点
+			//需要加上叶子节点，加上叶子节点是为了判断当某个节点只有一个叶子节点时，能够知道是左孩子还是右孩子
+			//如  A        A
+			//   /          \ 
+			//  B            B
+			//如果不加叶子节点，那么前序遍历均为AB
+			//加上叶子节点后，分别为AB###和A#B##，可以判断
 			preOrder.push_back(INT_MAX);
 			return;
 		}
