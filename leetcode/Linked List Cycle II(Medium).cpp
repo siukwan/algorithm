@@ -1,4 +1,18 @@
-﻿/**
+﻿/*
+思路：
+1.定义一个慢指针，每次走一步，定义一个快指针，每次走两步
+2.设起始点到环入口的距离为start
+3.当两个指针相遇时，设环入口到指针相遇地点的距离为common
+4.快指针走的路程为2*x=start+common+n*loop
+5.慢指针走的路程为  x=start+common
+6.上面两个式子相减得x=n*loop=start+common = (n-1)*loop + common + (loop- common)
+7.所以 start = （n-1）*loop + （loop - common）
+8.所以后面令一个指针从头开头走，另外一个指针从相遇点开始走，两个指针每次都走一步，则它们遇见的地方距离第一次相遇相差common，即为环的入口。
+
+*/
+
+
+/**
 * Definition for singly-linked list.
 * struct ListNode {
 *     int val;
