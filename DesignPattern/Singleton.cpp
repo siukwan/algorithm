@@ -37,8 +37,8 @@ private:
 	static Singleton* instance;
 };
 //C++单例模式需要先创建instance
-Singleton* Singleton::instance = new Singleton();
-
+//Singleton* Singleton::instance = new Singleton();
+Singleton* Singleton::instance = 0;
 int main(void)
 {
 	Singleton*s1 = Singleton::GetInstance();
