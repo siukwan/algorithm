@@ -38,7 +38,7 @@ private:
 };
 
 //参数列表为空，EventHandler是函数地址
-typedef void(*EventHandler)(void);
+typedef void   (*EventHandler)(void);
 class MyClass
 {
 public:
