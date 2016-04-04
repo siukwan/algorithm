@@ -24,7 +24,14 @@ def ConvertCN(s):
 fp=open('json.txt')
 allLines = fp.readlines()
 #print fp
+
+
 fp.close()
+str=""
 for eachLine in allLines:
 	eachLine=ConvertCN(eachLine)
-	print eachLine #支持输出换行符
+	for i in range(0,len(eachLine)):
+		if eachLine[i]!= ' ' and eachLine[i]!='\n': #删除空格和换行符，但是json双引号中的内容空格不能删除
+			str+=eachLine[i]
+	#print eachLine #支持输出换行符
+print str
