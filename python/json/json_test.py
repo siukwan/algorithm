@@ -1,4 +1,7 @@
 #encoding: utf-8
+import sys  
+reload(sys)   
+sys.setdefaultencoding('utf8')  
 import json
 class json:
 	def decode(self, json_input):
@@ -14,7 +17,8 @@ class json:
 
 
 
-
+def ConvertCN(s):  
+	return s.encode('gb18030')  
 
 
 fp=open('json.txt')
@@ -22,4 +26,5 @@ allLines = fp.readlines()
 #print fp
 fp.close()
 for eachLine in allLines:
+	eachLine=ConvertCN(eachLine)
 	print eachLine #支持输出换行符
