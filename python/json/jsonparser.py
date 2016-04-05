@@ -20,6 +20,12 @@ def txt2str(file='jsondata.txt'):
 	return str
 
 
+class jsonpaser:
+
+	def deleteBlank(str)
+		while
+
+
 #main函数
 if __name__ == '__main__':
 
