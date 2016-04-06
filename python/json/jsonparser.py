@@ -32,10 +32,14 @@ class jsonparser:
 		while self._index<len(self._str) and self._str[self._index] in ' \n\t\r':
 			self._index=self._index+1
 	def display(self):
+		displayStr=""
 		while self._index<len(self._str):
 			self.deleteBlank()
-			print self._str[self._index]
+			#print self._str[self._index],
+			#print "%s"%self._str[self._index],
+			displayStr=displayStr+self._str[self._index]
 			self._index=self._index+1
+		print displayStr
 
 #main函数
 if __name__ == '__main__':
