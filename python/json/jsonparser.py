@@ -1,4 +1,7 @@
 #encoding: utf-8
+'''
+Author:Siukwan
+'''
 import sys  
 reload(sys)   
 sys.setdefaultencoding('utf8')  
@@ -11,7 +14,7 @@ def txt2str(file='jsondata.txt'):
 	fp.close()
 	str=""
 	for eachLine in allLines:
-		eachLine=ConvertCN(eachLine)
+		#eachLine=ConvertCN(eachLine)
 
 		#转换成字符串
 		for i in range(0,len(eachLine)):
@@ -20,7 +23,7 @@ def txt2str(file='jsondata.txt'):
 	return str
 
 
-class jsonpaser:
+class jsonparser:
 
 	def __init__(self, str=None):
 		self._str = str
@@ -28,8 +31,15 @@ class jsonpaser:
 	def deleteBlank(self):
 		while self._index<len(self._str) and self._str[self._index] in ' \n\t\r':
 			self._index=self._index+1
-
+	def display(self):
+		while self._index<len(self._str):
+			self.deleteBlank()
+			print self._str[self._index]
+			self._index=self._index+1
 
 #main函数
 if __name__ == '__main__':
 	print "test"
+	jsonStr=txt2str()
+	jsonInstance=jsonparser(jsonStr)
+	jsonInstance.display()
