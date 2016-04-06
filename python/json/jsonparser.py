@@ -22,10 +22,14 @@ def txt2str(file='jsondata.txt'):
 
 class jsonpaser:
 
-	def deleteBlank(str)
-		while
+	def __init__(self, str=None):
+		self._str = str
+		self._index=0
+	def deleteBlank(self):
+		while self._index<len(self._str) and self._str[self._index] in ' \n\t\r':
+			self._index=self._index+1
 
 
 #main函数
 if __name__ == '__main__':
-
+	print "test"
