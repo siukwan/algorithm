@@ -28,9 +28,16 @@ class jsonparser:
 	def __init__(self, str=None):
 		self._str = str
 		self._index=0
-	def deleteBlank(self):
+
+	def deleteBlank(self):  
+		'''
+		跳过空白、换行或tab： \n\t\r
+		'''
 		while self._index<len(self._str) and self._str[self._index] in ' \n\t\r':
 			self._index=self._index+1
+
+	def _parse_string(self):
+		
 	def display(self):
 		displayStr=""
 		while self._index<len(self._str):
