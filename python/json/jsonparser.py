@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf8')
 
 import json
 
-def txt2str(file='jsondata.txt'):
+def txt2str(file='jsondata2.txt'):
 	fp=open(file)
 	allLines = fp.readlines()
 	fp.close()
@@ -82,12 +82,14 @@ class jsonparser:
 
 	def display(self):
 		displayStr=""
+		self._skipBlank()
 		while self._index<len(self._str):
-			self._skipBlank()
 			#print self._str[self._index],
 			#print "%s"%self._str[self._index],
 			displayStr=displayStr+self._str[self._index]
 			self._index=self._index+1
+			self._skipBlank()
+			#print self._index
 		print displayStr
 
 #main函数
