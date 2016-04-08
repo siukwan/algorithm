@@ -37,7 +37,16 @@ class jsonparser:
 			self._index=self._index+1
 
 	def _parse_string(self):
-		
+		'''
+		找出两个双引号中的string
+		'''
+		begin = end =self._index
+		#找到string的范围
+		while self._str[self._index]!='"':
+			end=end+1
+		self._index = end+1
+		return self._str[begin:end]
+
 	def display(self):
 		displayStr=""
 		while self._index<len(self._str):
