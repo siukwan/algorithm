@@ -60,10 +60,26 @@ class jsonparser:
 		while True:
 			key = self._parse_string() #获取key值
 			self._skipBlank()
-			self._index = self._index+1#跳过:
+
+			self._index = self._index+1#跳过冒号:
 			self._skipBlank()
-			#获取value值
-		 
+
+			#获取value值,目前假设只有string的value
+			obj[key]= self._parse_string()
+			self._skipBlank()
+
+			#对象结束了，break
+			if self._str[self._index]=='}':
+				self._index +=1
+				break
+		 	elif self._str[self._index]==',':#还存在其他对象
+				self._index +=1
+				self._skipBlank()
+
+			self._index +=1#跳过下一个对象的第一个双引号
+
+		return obj#返回对象
+
 	def display(self):
 		displayStr=""
 		while self._index<len(self._str):
