@@ -29,7 +29,7 @@ class jsonparser:
 		self._str = str
 		self._index=0
 
-	def deleteBlank(self):  
+	def _skipBlank(self):  
 		'''
 		跳过空白、换行或tab： \n\t\r
 		'''
@@ -46,11 +46,28 @@ class jsonparser:
 			end=end+1
 		self._index = end+1
 		return self._str[begin:end]
-
+	def _parse_object(self):
+		obj={}
+		self._skipBlank()
+		#空object
+		if self._str[self._index]=='}':
+			self._index +=1
+			return obj
+		#elif self._str[self._index] !='"': 
+			#报错
+		
+		self._index+=1 #跳过当前的双引号
+		while True:
+			key = self._parse_string() #获取key值
+			self._skipBlank()
+			self._index = self._index+1#跳过:
+			self._skipBlank()
+			#获取value值
+		 
 	def display(self):
 		displayStr=""
 		while self._index<len(self._str):
-			self.deleteBlank()
+			self._skipBlank()
 			#print self._str[self._index],
 			#print "%s"%self._str[self._index],
 			displayStr=displayStr+self._str[self._index]
