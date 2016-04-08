@@ -38,6 +38,7 @@ class jsonparser:
 	def parse(self):
 		self._skipBlank()
 		if self._str[self._index]=='{':
+			self._index+=1
 			return self._parse_object()
 	def _parse_string(self):
 		'''
@@ -66,7 +67,9 @@ class jsonparser:
 
 			self._index = self._index+1#跳过冒号:
 			self._skipBlank()
-
+			
+			self._index = self._index+1#跳过双引号
+			self._skipBlank()
 			#获取value值,目前假设只有string的value
 			obj[key]= self._parse_string()
 			self._skipBlank()
