@@ -35,14 +35,17 @@ class jsonparser:
 		'''
 		while self._index<len(self._str) and self._str[self._index] in ' \n\t\r':
 			self._index=self._index+1
-
+	def parse(self):
+		self._skipBlank()
+		if self._str[self._index]=='{':
+			return self._parse_object()
 	def _parse_string(self):
 		'''
 		找出两个双引号中的string
 		'''
 		begin = end =self._index
 		#找到string的范围
-		while self._str[self._index]!='"':
+		while self._str[end]!='"':
 			end=end+1
 		self._index = end+1
 		return self._str[begin:end]
@@ -67,7 +70,7 @@ class jsonparser:
 			#获取value值,目前假设只有string的value
 			obj[key]= self._parse_string()
 			self._skipBlank()
-
+			print key,":",obj[key]
 			#对象结束了，break
 			if self._str[self._index]=='}':
 				self._index +=1
@@ -97,4 +100,5 @@ if __name__ == '__main__':
 	print "test"
 	jsonStr=txt2str()
 	jsonInstance=jsonparser(jsonStr)
+	dir(jsonInstance.parse())
 	jsonInstance.display()
