@@ -50,6 +50,37 @@ class jsonparser:
 			end=end+1
 		self._index = end+1
 		return self._str[begin:end]
+
+	def _parse_number(self):
+		'''
+		数值没有双引号
+		'''
+		begin = end = self._index
+		end_str=' \n\t\r,}]' #数字结束的字符串
+		while self._str[end] not in end_str:
+			end += 1
+		number = self._str[begin:end]
+
+		#进行转换
+		if '.' in number or 'e' in number or 'E' in number :
+			res = float(number)
+		else:
+			res = int(number)
+		self._index = end
+		return res
+
+	def _parse_value(self):
+		'''
+		解析值，包括string，数字
+		'''
+		if self._str[self._index] == '"':
+			self._index = self._index+1
+			self._skipBlank()
+			return self._parse_string()
+		else:
+			self._index = self._index+1
+			self._skipBlank()
+			return self._parse_number()
 	def _parse_object(self):
 		obj={}
 		self._skipBlank()
@@ -68,10 +99,10 @@ class jsonparser:
 			self._index = self._index+1#跳过冒号:
 			self._skipBlank()
 			
-			self._index = self._index+1#跳过双引号
-			self._skipBlank()
-			#获取value值,目前假设只有string的value
-			obj[key]= self._parse_string()
+			#self._index = self._index+1#跳过双引号
+			#self._skipBlank()
+			#获取value值,目前假设只有string的value和数字
+			obj[key]= self._parse_value()
 			self._skipBlank()
 			print key,":",obj[key]
 			#对象结束了，break
