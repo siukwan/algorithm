@@ -1,6 +1,4 @@
-﻿//#include<string>
-//#include <iomanip>
-#include<vector>
+﻿#include<vector>
 #include <algorithm>
 //#include<stack>
 #include<set>
